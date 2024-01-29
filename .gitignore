@@ -1,2 +1,5 @@
 # ns-3 library code
 ns-*/
+
+# pyenv
+.python-version
