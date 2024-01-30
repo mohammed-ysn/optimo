@@ -1,8 +1,14 @@
-import sys
 import subprocess
+import sys
+
+import move_scripts
 
 
 def main():
+    if "--copy-scripts" in sys.argv:
+        move_scripts.copy_cc_files("my_scripts", "./ns-allinone-3.40/ns-3.40/scratch")
+        sys.argv.remove("--copy-scripts")
+
     filename = sys.argv[1] if len(sys.argv) > 1 else "customfirst"
     ns3_command = f"./ns-allinone-3.40/ns-3.40/ns3 run scratch/{filename}"
 
