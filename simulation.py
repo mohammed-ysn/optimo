@@ -57,6 +57,13 @@ class NS3Simulation:
                 "my_scripts", "./ns-allinone-3.40/ns-3.40/scratch"
             )
 
-        ns3_command = f'./ns-allinone-3.40/ns-3.40/ns3 run "scratch/{self.filename} --transport_prot={self.tcp_variant} --duration={self.duration} --tracing={str(self.tracing).lower()} --pcap_tracing={str(self.pcap_tracing).lower()}"'
+        ns3_command = (
+            f'./ns-allinone-3.40/ns-3.40/ns3 run "scratch/{self.filename} '
+            f"--transport_prot={self.tcp_variant} "
+            f"--duration={self.duration} "
+            f"--tracing={str(self.tracing).lower()} "
+            f"--pcap_tracing={str(self.pcap_tracing).lower()}"
+            '"'
+        )
         print(f"Running ns3 command: {ns3_command}")
         subprocess.run(ns3_command, shell=True)
