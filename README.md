@@ -24,22 +24,8 @@ cd optimo
 pip install -r requirements.txt
 ```
 
-3. Download and extract [ns-3 version 3.40](https://www.nsnam.org/releases/ns-3-40/)
+3. Run the setup script
 
 ```bash
-wget https://www.nsnam.org/releases/ns-allinone-3.40.tar.bz2
-tar xfj ns-allinone-3.40.tar.bz2
-```
-
-4. Navigate to the `ns-3.40` directory and configure the build
-
-```bash
-cd ns-allinone-3.40/ns-3.40
-./ns3 configure --enable-examples --enable-tests
-```
-
-5. Build the project
-
-```bash
-./ns3 build
+sh setup.sh
 ```
