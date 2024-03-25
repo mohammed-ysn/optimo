@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 import copy_scripts
 
@@ -14,6 +15,12 @@ class NS3Simulation:
         pcap_tracing=True,
     ):
         self.filename = filename
+        if not os.path.isfile(f"./ns-allinone-3.40/ns-3.40/scratch/{filename}.cc"):
+            print(
+                f"Warning: file ./ns-allinone-3.40/ns-3.40/scratch/{filename}.cc not found"
+            )
+            print("Hint: You may want to set the copy_scripts parameter to True")
+
         self.copy_scripts = copy_scripts
         self.tcp_variant = tcp_variant
         self.duration = duration
