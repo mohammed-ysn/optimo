@@ -33,6 +33,7 @@ fi
 print_step 2 5 "Extracting $NS_ARCHIVE..."
 if [ ! -d "$NS_DIR" ]; then
     tar xfj "$NS_ARCHIVE" || { print_error 2 5 "Error: Failed to extract $NS_ARCHIVE"; exit 1; }
+    rm "$NS_ARCHIVE"
 fi
 
 print_step 3 5 "Navigating to $NS_DIR directory..."
