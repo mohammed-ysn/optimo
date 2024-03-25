@@ -61,7 +61,7 @@ class NS3Simulation:
     def run(self):
         if self.copy_scripts:
             copy_scripts.copy_cc_files(
-                "my_scripts", "./ns-allinone-3.40/ns-3.40/scratch"
+                "ns3_scripts", "./ns-allinone-3.40/ns-3.40/scratch"
             )
 
         ns3_command = (

@@ -15,7 +15,7 @@ def copy_cc_files(source_dir, dest_dir):
 
 
 if __name__ == "__main__":
-    # Copy all .cc files from my_scripts directory to ns-3.40/scratch directory
-    source_dir = "my_scripts"
+    # Copy all .cc files from ns3_scripts directory to ns-3.40/scratch directory
+    source_dir = "ns3_scripts"
     dest_dir = "./ns-allinone-3.40/ns-3.40/scratch"
     copy_cc_files(source_dir, dest_dir)
