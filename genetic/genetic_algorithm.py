@@ -26,76 +26,12 @@ def generate_random_algorithm():
     return TCPAlgorithm(parameters)
 
 
-def crossover(parent1, parent2):
-    # Performs crossover between two parent algorithms to create offspring
-    # TODO: implement a better crossover logic
-    child_parameters = {}
-    for key, value in parent1.parameters.items():
-        if random.random() < 0.5:
-            child_parameters[key] = value
-        else:
-            child_parameters[key] = parent2.parameters[key]
-    return TCPAlgorithm(child_parameters)
-
-
-def mutate(algorithm):
+def mutate(algorithm, mutation_rate=0.1, mutation_range=(-0.1, 0.1)):
     # Mutate the parameters of an algorithm with a small probability
     # TODO: implement a better mutation logic
-    for key, value in algorithm.parameters.items():
-        if random.random() < 0.1:
-            algorithm.parameters[key] += random.uniform(-0.1, 0.1)
+    for key in algorithm.parameters.keys():
+        if random.random() < mutation_rate:
+            mutation_amount = random.uniform(*mutation_range)
+            algorithm.parameters[key] += mutation_amount
+            # TODO: clamp the parameter values to a valid range
     return algorithm
-
-
-def main():
-    # Hyperparameters
-    population_size = 100
-    generations = 100
-
-    # Initialise population
-    population = [generate_random_algorithm() for _ in range(population_size)]
-
-    # Evolve for generations
-    for generation in range(generations):
-        # Evaluate fitness
-        fitness = [algorithm.simulate() for algorithm in population]
-
-        print(
-            f"Generation {generation}: Average fitness: {sum(fitness) / len(fitness)}"
-        )
-
-        # Selection
-        # TODO: implement different selection algorithms here, e.g. roulette wheel selection, tournament selection
-        # Good place to use a strategy pattern
-        selected_parents = []
-        for _ in range(int(population_size / 2)):
-            # Select two parents based on their fitness
-            parent1_index = fitness.index(max(fitness))
-            fitness.pop(parent1_index)
-            parent2_index = fitness.index(max(fitness))
-            fitness.pop(parent2_index)
-            selected_parents.append(population[parent1_index])
-            selected_parents.append(population[parent2_index])
-
-        # Crossover and mutation
-        offspring = []
-        for i in range(0, population_size, 2):
-            parent1, parent2 = selected_parents[i], selected_parents[i + 1]
-            child1 = crossover(parent1, parent2)
-            child2 = crossover(parent1, parent2)
-            child1 = mutate(child1)
-            child2 = mutate(child2)
-            offspring.append(child1)
-            offspring.append(child2)
-
-        # Replace old population with offspring
-        population = offspring
-
-    fitness = [algorithm.simulate() for algorithm in population]
-    best_algorithm = population[fitness.index(max(fitness))]
-    print(f"Best algorithm: {best_algorithm.parameters}")
-    print(f"Best fitness: {max(fitness)}")
-
-
-if __name__ == "__main__":
-    main()
