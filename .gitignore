@@ -1,6 +1,9 @@
 # ns-3 library code
 ns-*/
 
+# ns-3 simulation output files
+simulation_output/
+
 # pyenv
 .python-version
 

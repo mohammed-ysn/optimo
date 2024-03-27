@@ -3,6 +3,8 @@ import os
 
 import copy_scripts
 
+SIMULATION_OUTPUT_DIR = "simulation_output"
+
 
 class NS3Simulation:
     def __init__(
@@ -64,13 +66,18 @@ class NS3Simulation:
                 "ns3_scripts", "./ns-allinone-3.40/ns-3.40/scratch"
             )
 
+        # Create the output directory if it does not exist
+        if not os.path.exists(SIMULATION_OUTPUT_DIR):
+            os.makedirs(SIMULATION_OUTPUT_DIR)
+
         ns3_command = (
             f'./ns-allinone-3.40/ns-3.40/ns3 run "scratch/{self.filename} '
             f"--transport_prot={self.tcp_variant} "
             f"--duration={self.duration} "
             f"--tracing={str(self.tracing).lower()} "
             f"--pcap_tracing={str(self.pcap_tracing).lower()}"
-            '"'
+            '" '
+            f"--cwd={SIMULATION_OUTPUT_DIR}"
         )
         print(f"Running ns3 command: {ns3_command}")
         subprocess.run(ns3_command, shell=True)
