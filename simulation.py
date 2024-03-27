@@ -13,8 +13,6 @@ class NS3Simulation:
         copy_scripts=False,
         tcp_variant="TcpWestwoodPlus",
         duration=3,
-        tracing=True,
-        pcap_tracing=True,
     ):
         self.filename = filename
         if not os.path.isfile(f"./ns-allinone-3.40/ns-3.40/scratch/{filename}.cc"):
@@ -26,8 +24,6 @@ class NS3Simulation:
         self.copy_scripts = copy_scripts
         self.tcp_variant = tcp_variant
         self.duration = duration
-        self.tracing = tracing
-        self.pcap_tracing = pcap_tracing
 
     def set_filename(self, filename):
         self.filename = filename
@@ -48,18 +44,6 @@ class NS3Simulation:
     def set_duration(self, duration):
         self.duration = duration
 
-    def enable_tracing(self):
-        self.tracing = True
-
-    def disable_tracing(self):
-        self.tracing = False
-
-    def enable_pcap_tracing(self):
-        self.pcap_tracing = True
-
-    def disable_pcap_tracing(self):
-        self.pcap_tracing = False
-
     def run(self):
         if self.copy_scripts:
             copy_scripts.copy_cc_files(
@@ -74,8 +58,8 @@ class NS3Simulation:
             f'./ns-allinone-3.40/ns-3.40/ns3 run "scratch/{self.filename} '
             f"--transport_prot={self.tcp_variant} "
             f"--duration={self.duration} "
-            f"--tracing={str(self.tracing).lower()} "
-            f"--pcap_tracing={str(self.pcap_tracing).lower()}"
+            f"--tracing=true "
+            f"--pcap_tracing=true "
             '" '
             f"--cwd={SIMULATION_OUTPUT_DIR}"
         )
