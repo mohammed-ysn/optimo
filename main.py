@@ -11,8 +11,15 @@ def main():
 
     copy_scripts = args.copy_scripts
 
-    sim = NS3Simulation("tcp-comparison", copy_scripts=copy_scripts)
+    sim = NS3Simulation(
+        filename="tcp-comparison",
+        duration=10,
+        copy_scripts=copy_scripts,
+    )
     sim.run()
+
+    # sim.set_tcp_variant("TcpNewReno")
+    # sim.run()
 
 
 if __name__ == "__main__":

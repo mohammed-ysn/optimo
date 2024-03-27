@@ -9,10 +9,10 @@ SIMULATION_OUTPUT_DIR = "simulation_output"
 class NS3Simulation:
     def __init__(
         self,
-        filename="customfirst",
+        filename,
+        duration,
         copy_scripts=False,
         tcp_variant="TcpWestwoodPlus",
-        duration=3,
     ):
         self.filename = filename
         if not os.path.isfile(f"./ns-allinone-3.40/ns-3.40/scratch/{filename}.cc"):
@@ -24,15 +24,6 @@ class NS3Simulation:
         self.copy_scripts = copy_scripts
         self.tcp_variant = tcp_variant
         self.duration = duration
-
-    def set_filename(self, filename):
-        self.filename = filename
-
-    def enable_copy_scripts(self):
-        self.copy_scripts = True
-
-    def disable_copy_scripts(self):
-        self.copy_scripts = False
 
     def set_tcp_variant(self, tcp_variant):
         # Transport protocol to use: TcpNewReno, TcpLinuxReno,
@@ -55,7 +46,7 @@ class NS3Simulation:
             os.makedirs(SIMULATION_OUTPUT_DIR)
 
         ns3_command = (
-            f'./ns-allinone-3.40/ns-3.40/ns3 run "scratch/{self.filename} '
+            f'./ns-allinone-3.40/ns-3.40/ns3 run "scratch/optimo-{self.filename} '
             f"--transport_prot={self.tcp_variant} "
             f"--duration={self.duration} "
             f"--tracing=true "
@@ -65,3 +56,4 @@ class NS3Simulation:
         )
         print(f"Running ns3 command: {ns3_command}")
         subprocess.run(ns3_command, shell=True)
+        print("Simulation completed!")

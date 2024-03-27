@@ -10,8 +10,11 @@ def copy_cc_files(source_dir, dest_dir):
 
     for file in os.listdir(source_dir):
         if file.endswith(".cc"):
-            shutil.copy(os.path.join(source_dir, file), dest_dir)
-            print("Copied file: " + file)
+            new_filename = "optimo-" + file
+            shutil.copy(
+                os.path.join(source_dir, file), os.path.join(dest_dir, new_filename)
+            )
+            print(f"Copied file: {file} -> {new_filename}")
 
 
 if __name__ == "__main__":
