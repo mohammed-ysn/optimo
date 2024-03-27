@@ -1,7 +1,7 @@
+import shutil
 import subprocess
 import os
 
-import copy_scripts
 
 SIMULATION_OUTPUT_DIR = "simulation_output"
 
@@ -36,10 +36,26 @@ class NS3Simulation:
         self.duration = duration
 
     def run(self):
+        # Copy the .cc files to the ns3 scratch directory
         if self.copy_scripts:
-            copy_scripts.copy_cc_files(
-                "ns3_scripts", "./ns-allinone-3.40/ns-3.40/scratch"
+            source_dir = os.path.join(os.path.dirname(__file__), "../ns3_scripts")
+            dest_dir = os.path.join(
+                os.path.dirname(__file__), "../ns-allinone-3.40/ns-3.40/scratch"
             )
+
+            if not os.path.exists(dest_dir):
+                print("Error: destination directory does not exist")
+                print("Hint: Run the setup.sh script to set up the ns3 environment")
+                return
+
+            for file in os.listdir(source_dir):
+                if file.endswith(".cc"):
+                    new_filename = "optimo-" + file
+                    shutil.copy(
+                        os.path.join(source_dir, file),
+                        os.path.join(dest_dir, new_filename),
+                    )
+                    print(f"Copied file: {file} -> {new_filename}")
 
         # Create the output directory if it does not exist
         if not os.path.exists(SIMULATION_OUTPUT_DIR):
